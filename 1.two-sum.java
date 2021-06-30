@@ -70,7 +70,7 @@ class Solution {
            // check complement first.
            int complement = target - nums[i];
            if (map.containsKey(complement))
-               return new int[] { i, map.get(complement) };
+               return new int[] { map.get(complement), i };
         
            // insert <K, V> to avoid same index. 
            map.put(nums[i], i);
