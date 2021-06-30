@@ -63,7 +63,6 @@ class Solution {
         int a = 1;  // a: intervals between two elements.
         int b = -1; // b: index of the first element.
         while (a < nums.length) {
-            // find match with interval a.
             for (int i = a; i < nums.length; i++) {
                 if (target - nums[i] == nums[i - a]) {
                     b = i;
@@ -71,8 +70,6 @@ class Solution {
                 }
                     
             }
-
-            // break loop if match is found.
             if (b != -1)
                 break;
 
