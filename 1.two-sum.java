@@ -58,16 +58,24 @@
  * less than&nbsp;<code>O(n<sup>2</sup>)&nbsp;</code>time complexity?
  */
 
+import java.util.Map;
+import java.util.HashMap;
+
 class Solution {
     public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        // put <K, V> pair into the map.
+        for (int i = 0; i < nums.length; i++)
+            map.put(nums[i], i);
+
+        // find the complement in the array using hashmap lookup.
         for (int i = 0; i < nums.length; i++) {
-            for (int j = i+1; j < nums.length; j++) {
-                if (target - nums[i] == nums[j]) {
-                    return new int[] { i, j };
-                }             
-            }
+            int complement = target - nums[i];
+            if (map.containsKey(complement) && map.get(complement) != i)
+                return new int[] { i, map.get(complement) };
         }
-        throw new IllegalArgumentException("No Two Sum Solutions.");
+        throw new IllegalArgumentException();
     }
 }
 
