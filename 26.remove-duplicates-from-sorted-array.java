@@ -94,12 +94,10 @@ class Solution {
 
         }
         
-         
         for (int i = 0; i < count; i++) {
            nums[i] = map.get(i);
         }
         
-        System.out.println(count);
         return count; // return the size of the hashmap.
     }
 }
