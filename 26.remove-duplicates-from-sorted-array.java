@@ -78,9 +78,6 @@
  * 
  */
 
- import java.util.Map;
- import java.util.HashMap;
-
 class Solution {
     public int removeDuplicates(int[] nums) {
         // put unique elements into hashmap.
