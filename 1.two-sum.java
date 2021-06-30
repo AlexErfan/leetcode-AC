@@ -65,16 +65,17 @@ class Solution {
     public int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
 
-        // put <K, V> pair into the map.
-        for (int i = 0; i < nums.length; i++)
-            map.put(nums[i], i);
-
-        // find the complement in the array using hashmap lookup.
+        // complement lookup and <K, V> insertion being performed in one for loop.
         for (int i = 0; i < nums.length; i++) {
-            int complement = target - nums[i];
-            if (map.containsKey(complement) && map.get(complement) != i)
-                return new int[] { i, map.get(complement) };
+           // check complement first.
+           int complement = target - nums[i];
+           if (map.containsKey(complement))
+               return new int[] { i, map.get(complement) };
+        
+           // insert <K, V> to avoid same index. 
+           map.put(nums[i], i);
         }
+
         throw new IllegalArgumentException();
     }
 }
