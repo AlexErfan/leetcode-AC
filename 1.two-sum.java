@@ -57,27 +57,28 @@
  * <strong>Follow-up:&nbsp;</strong>Can you come up with an algorithm that is
  * less than&nbsp;<code>O(n<sup>2</sup>)&nbsp;</code>time complexity?
  */
-
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        int a = 1;  // a: intervals between two elements.
-        int b = -1; // b: index of the first element.
-        while (a < nums.length) {
+        int a = 1;
+        int b = -1;
+        
+        while (a <= nums.length) {
             for (int i = a; i < nums.length; i++) {
-                if (target - nums[i] == nums[i - a]) {
+						// try combinations with different space intervals.
+                if (nums[i] + nums[i-a] == target) {
                     b = i;
+										// keep the value of i when for loop exits.
                     break;
                 }
-                    
             }
-            if (b != -1)
+            
+            if (b != -1) {
                 break;
-
+								// prevent variable a from increasing.
+            }
             a++;
         }
-
-        return new int[] {b-a, b};
+        
+        return new int[]{b-a, b};
     }
 }
-
-
