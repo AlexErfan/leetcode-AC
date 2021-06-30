@@ -58,25 +58,28 @@
  * less than&nbsp;<code>O(n<sup>2</sup>)&nbsp;</code>time complexity?
  */
 
-import java.util.Map;
-import java.util.HashMap;
-
 class Solution {
     public int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
+        int a = 1;  // a: intervals between two elements.
+        int b = -1; // b: index of the first element.
+        while (a < nums.length) {
+            // find match with interval a.
+            for (int i = a; i < nums.length; i++) {
+                if (target - nums[i] == nums[i - a]) {
+                    b = i;
+                    break;
+                }
+                    
+            }
 
-        // complement lookup and <K, V> insertion being performed in one for loop.
-        for (int i = 0; i < nums.length; i++) {
-           // check complement first.
-           int complement = target - nums[i];
-           if (map.containsKey(complement))
-               return new int[] { map.get(complement), i };
-        
-           // insert <K, V> to avoid same index. 
-           map.put(nums[i], i);
+            // break loop if match is found.
+            if (b != -1)
+                break;
+
+            a++;
         }
 
-        throw new IllegalArgumentException();
+        return new int[] {b-a, b};
     }
 }
 
