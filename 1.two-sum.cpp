@@ -63,8 +63,7 @@ public:
         for (int i = 0; i < nums.size(); i++) {
             for (int j = i + 1; j < nums.size(); j++) {
                 if (target - nums.at(i) == nums.at(j)) {
-                    vector<int> answer{i, j};
-                    return answer;
+                    return {i, j};
                 }             
             }
         }
