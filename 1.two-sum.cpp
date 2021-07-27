@@ -62,9 +62,14 @@ public:
     vector<int> twoSum(vector<int>& nums, int target) {
         unordered_map<int, int> lookup;
         for (int i = 0; i < nums.size(); i++) {
-            if (lookup.count(target - nums[i]))
+           lookup[nums[i]] = i;
+        }
+
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums[i];
+            if (lookup.count(complement) && lookup[target - nums[i]] != i) {
                 return {i, lookup[target - nums[i]]};
-            lookup[nums[i]] = i;
+            }
         }
         return {};
     }
