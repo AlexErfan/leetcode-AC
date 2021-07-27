@@ -60,17 +60,21 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        unordered_map<int, int> lookup;
-        for (int i = 0; i < nums.size(); i++) {
-           lookup[nums[i]] = i;
-        }
+        int a = 1;
+        int b = -1;
+        while (a < nums.size()) {
 
-        for (int i = 0; i < nums.size(); i++) {
-            int complement = target - nums[i];
-            if (lookup.count(complement) && lookup[target - nums[i]] != i) {
-                return {i, lookup[target - nums[i]]};
+            for (int i = a; i < nums.size(); i++) {
+                if (target - nums[i] == nums[i-a]) {
+                    b = i;
+                    break;
+                }
             }
+            if (b != -1)
+                break;
+
+            a++;
         }
-        return {};
+        return {b-a, b};
     }
 };
