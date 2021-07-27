@@ -59,22 +59,31 @@
  */
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        int a = 1;
-        int b = -1;
-        while (a < nums.size()) {
+    vector<int> twoSum(vector<int>& arr, int sum) {
+            unordered_set<int> s;
+    vector<int> result;
 
-            for (int i = a; i < nums.size(); i++) {
-                if (target - nums[i] == nums[i-a]) {
-                    b = i;
-                    break;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        int j = 0;
+        int x = sum - arr[i];
+
+        if (s.find(x) != s.end())
+        {
+            for (int j = 0; j < s.size(); j++)
+            {
+                if (arr[j] == x)
+                {
+                    result.push_back(j);
+                    result.push_back(i);
                 }
             }
-            if (b != -1)
-                break;
 
-            a++;
+            return result;
         }
-        return {b-a, b};
+
+        s.insert(arr[i]);
     }
+    return {};
+}
 };
