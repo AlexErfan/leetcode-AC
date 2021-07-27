@@ -66,8 +66,9 @@ public:
         }
 
         for (int i = 0; i < nums.size(); i++) {
-            if (lookup.count(target - nums[i]) && lookup[target - nums[i]] != i) {
-                return {i, lookup[target - nums[i]]};
+            int complement = target - nums[i];
+            if (lookup.count(complement) && lookup[complement] != i) {
+                return {i, lookup[complement]};
             }
         }
         return {};
