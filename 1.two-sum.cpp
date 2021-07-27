@@ -60,20 +60,13 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
-        for (int i = 0; i < nums.size(); i++) {
-            for (int j = i + 1; j < nums.size(); j++) {
-                if (target - nums.at(i) == nums.at(j)) {
-                    return {i, j};
-										/*
-										return {}; indicates "return an object of the
-										function's return type initialized with an empty
-										list-initializer". The exact behaviour depends on
-										the returned object's type.
-										*/
-                }
+        unordered_map<int, int> lookup;
+        for (int i = 0; i < nums.size(); ++i) {
+            if (lookup.count(target - nums[i])) {
+                return {lookup[target - nums[i]], i};
             }
+            lookup[nums[i]] = i;
         }
-
         return {};
     }
 };
