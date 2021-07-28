@@ -55,18 +55,14 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        int ans = INT_MIN;
-        int sum = 0;
-
-        if (nums.empty())
-            return 0;
-
-        for (int i = 0; i < nums.size(); i++) {
-            sum += nums[i];
-            ans = max(sum, ans);
-            sum = max(sum, 0);
+        int max_so_far = INT_MIN;
+        int curr_max = INT_MIN;
+ 
+        for (const auto &x: nums)
+        {
+             curr_max = (curr_max == INT_MIN) ? x : max(curr_max + x, x);
+             max_so_far = max(max_so_far, curr_max);
         }
-
-        return ans;
+        return max_so_far;
     }
 };
