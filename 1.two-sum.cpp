@@ -59,31 +59,16 @@
  */
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& arr, int sum) {
-            unordered_set<int> s;
-    vector<int> result;
-
-    for (int i = 0; i < arr.size(); i++)
-    {
-        int j = 0;
-        int x = sum - arr[i];
-
-        if (s.find(x) != s.end())
-        {
-            for (int j = 0; j < s.size(); j++)
-            {
-                if (arr[j] == x)
-                {
-                    result.push_back(j);
-                    result.push_back(i);
+    vector<int> twoSum(vector<int>& nums, int target) {
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = i + 1; j < nums.size(); j++) {
+                if (target - nums.at(i) == nums.at(j)) {
+                    return {i, j};
                 }
             }
-
-            return result;
         }
-
-        s.insert(arr[i]);
-    }
-    return {};
+        
+        return {};
 }
+
 };
