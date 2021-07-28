@@ -53,16 +53,22 @@
  * 
  */
 class Solution {
+private: 
+    int maxOverall = INT_MIN;
 public:
     int maxSubArray(vector<int>& nums) {
-        int max_so_far = INT_MIN;
-        int curr_max = INT_MIN;
- 
-        for (const auto &x: nums)
-        {
-             curr_max = (curr_max == INT_MIN) ? x : max(curr_max + x, x);
-             max_so_far = max(max_so_far, curr_max);
-        }
-        return max_so_far;
+        recurse(nums, 0);
+        return maxOverall;
+    }
+
+protected:
+    int recurse(vector<int>& nums, const int &index) {
+        int maxSoFar = 0;
+        if (index == nums.size()-1)
+            maxSoFar = nums[index];
+        else 
+            maxSoFar = max(nums[index], nums[index] + recurse(nums, index+1));
+        maxOverall = max(maxOverall, maxSoFar);
+        return maxSoFar;
     }
 };
