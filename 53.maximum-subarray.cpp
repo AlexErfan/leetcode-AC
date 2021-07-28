@@ -63,13 +63,13 @@ private:
     int maxOverAll = INT_MIN;
 
 protected:
-    int recurse(vector<int>& nums, const int &index) {
-        int maxSoFar = 0;
-        if (index == nums.size()-1)
-            maxSoFar = nums[index];
+    int recurse(vector<int>& nums, const int& idx) {
+        int maxCur = 0;
+        if (idx == nums.size()-1)
+            maxCur = nums[idx];
         else
-            maxSoFar = max(nums[index], nums[index] + recurse(nums, index + 1));
-        maxOverAll = max(maxOverAll, maxSoFar);
-        return maxSoFar;
+            maxCur = max(nums[idx], nums[idx] + recurse(nums, idx + 1));
+        maxOverAll = max(maxCur, maxOverAll);
+        return maxCur;
     }
 };
