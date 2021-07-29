@@ -53,22 +53,27 @@
  * 
  */
 class Solution {
+
+private:
+    int maxOverAll = INT_MIN;
+
+protected:
+    int recurse(vector<int>& nums, const int& idx){
+        int maxCur = 0;
+
+        if (idx == nums.size()-1)
+            maxCur = nums[idx];
+        else {
+            maxCur = max(nums[idx], nums[idx] + recurse(nums, idx+1));
+        }
+            maxOverAll = max(maxCur, maxOverAll);
+        return maxCur;
+        
+    }
+
 public:
     int maxSubArray(vector<int>& nums) {
-        // Kadane's Algorithm. Keep replacing the max sum.
-        int maxSoFar = INT_MIN;
-        int sum = 0;
-
-        if (nums.empty())
-            return 0;
-
-        for (const auto& x: nums) {
-            sum += x;
-            maxSoFar = max(sum, maxSoFar);
-            sum = max(sum, 0);
-        }
-
-        return maxSoFar;
-         
+        recurse(nums, 0);
+        return maxOverAll;
     }
 };
