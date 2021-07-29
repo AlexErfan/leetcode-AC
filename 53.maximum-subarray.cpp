@@ -55,18 +55,48 @@
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        // DP problem.
-        int maxOverAll = INT_MIN;
-        int maxSum = INT_MIN;
-        
-        if (nums.empty())
-            return 0;
+        int n = nums.size() - 1;
+        return maxSubArray(nums, 0, n);
+    }
 
-        for (const auto& x: nums) {
-           maxSum = (maxSum == INT_MIN) ? x : max(x, x + maxSum);
-           maxOverAll = max(maxSum, maxOverAll);
-        }
-        
+private:
+    int maxSubArray(vector<int>& nums, const int& lo, const int& hi) {
+        if (lo == hi) // base case: return one number.
+            return nums[lo];
+
+        // divide.
+        int mid = lo + (hi - lo) / 2;
+        // conquer.
+        int leftMax = maxSubArray(nums, lo, mid);
+        int rightMax = maxSubArray(nums, mid+1, hi);
+        int crossMax = crossSum(nums, lo, hi);
+        // combine.
+        int maxOverAll = max(crossMax, max(leftMax, rightMax));
         return maxOverAll;
     }
+
+    int crossSum(vector<int>& nums, const int&lo, const int& hi) {
+        int mid = lo + (hi - lo) / 2;
+        int leftSum = 0;
+        int rightSum = 0;
+        int leftMax = INT_MIN;
+        int rightMax = INT_MIN;
+
+        //left.
+        for (int i = mid; i>=lo; --i) {
+            leftSum += nums[i];
+            leftMax = max(leftSum, leftMax);
+        }
+
+        //right.
+        for (int i = mid + 1; i <= hi; ++i) {
+            rightSum += nums[i];
+            rightMax = max(rightSum, rightMax);
+        }
+
+        return leftMax + rightMax;
+
+    }
+
+
 };
