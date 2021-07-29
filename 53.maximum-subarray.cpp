@@ -53,27 +53,20 @@
  * 
  */
 class Solution {
-
-private:
-    int maxOverAll = INT_MIN;
-
-protected:
-    int recurse(vector<int>& nums, const int& idx){
-        int maxCur = 0;
-
-        if (idx == nums.size()-1)
-            maxCur = nums[idx];
-        else {
-            maxCur = max(nums[idx], nums[idx] + recurse(nums, idx+1));
-        }
-            maxOverAll = max(maxCur, maxOverAll);
-        return maxCur;
-        
-    }
-
 public:
     int maxSubArray(vector<int>& nums) {
-        recurse(nums, 0);
+        // DP problem.
+        int maxOverAll = INT_MIN;
+        int maxSum = INT_MIN;
+        
+        if (nums.empty())
+            return 0;
+
+        for (const auto& x: nums) {
+           maxSum = (maxSum == INT_MIN) ? x : max(x, x + maxSum);
+           maxOverAll = max(maxSum, maxOverAll);
+        }
+        
         return maxOverAll;
     }
 };
