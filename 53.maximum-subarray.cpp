@@ -62,13 +62,13 @@ public:
         if (nums.empty())
             return 0;
 
-        for (const auto& x:nums) {
-           sum += x;
-           maxSoFar = max(sum, maxSoFar);
-           sum = max(sum, 0);
-
+        for (const auto& x: nums) {
+            sum += x;
+            maxSoFar = max(sum, maxSoFar);
+            sum = max(sum, 0);
         }
 
         return maxSoFar;
+         
     }
 };
