@@ -61,35 +61,32 @@ public:
 
 private:
     int maxSubArray(vector<int>& nums, const int& lo, const int& hi) {
-        if (lo == hi) // base case: return one number.
+        if (lo == hi)
             return nums[lo];
 
-        // divide.
         int mid = lo + (hi - lo) / 2;
-        // conquer.
+        // Divide.
         int leftMax = maxSubArray(nums, lo, mid);
-        int rightMax = maxSubArray(nums, mid+1, hi);
+        int rightMax = maxSubArray(nums, mid + 1, hi);
         int crossMax = crossSum(nums, lo, hi);
-        // combine.
-        int maxOverAll = max(crossMax, max(leftMax, rightMax));
-        return maxOverAll;
+        // Combine.
+        return max(crossMax, max(leftMax, rightMax));
     }
 
-    int crossSum(vector<int>& nums, const int&lo, const int& hi) {
+    int crossSum(vector<int>& nums, const int& lo, const int& hi) {
         int mid = lo + (hi - lo) / 2;
-        int leftSum = 0;
-        int rightSum = 0;
-        int leftMax = INT_MIN;
-        int rightMax = INT_MIN;
-
-        //left.
-        for (int i = mid; i>=lo; --i) {
+        
+        // left side.
+        int leftSum = 0, leftMax = INT_MIN;
+        for (int i = mid; i >= lo; --i) {
             leftSum += nums[i];
             leftMax = max(leftSum, leftMax);
         }
 
-        //right.
-        for (int i = mid + 1; i <= hi; ++i) {
+
+        // right side.
+        int rightSum = 0, rightMax = INT_MIN;
+        for (int i = mid + 1; i <= hi; i++) {
             rightSum += nums[i];
             rightMax = max(rightSum, rightMax);
         }
@@ -97,6 +94,5 @@ private:
         return leftMax + rightMax;
 
     }
-
 
 };
