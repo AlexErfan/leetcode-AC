@@ -83,7 +83,8 @@ public:
            }
            --k;
         }
-
+        
+        // handle situation when m=0, n>0
         while (n > 0) {
            nums1[k-1]  = nums2[n-1];
            --k;
