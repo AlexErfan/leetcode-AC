@@ -59,21 +59,22 @@ public:
         int final_digit = 0;        
         int size = digits.size();
         int carry = 0;
+
         digits[size-1] += 1;
+
         if (digits[size-1] == 10) {
             digits[size-1] = 0;
             carry = 1;
 
-        }
-
-        for (int i=size-2; i >= 0; --i) {
-            digits[i] += carry;
-            if (digits[i] == 10) {
-                digits[i] = 0;
-                carry = 1;
-            } else 
-                carry = 0;
-        }
+            for (int i=size-2; i >= 0; --i) {
+                digits[i] += carry;
+                if (digits[i] == 10) {
+                    digits[i] = 0;
+                    carry = 1;
+                } else 
+                    carry = 0;
+            }
+        } 
 
         if (carry == 1) // prepend 1 to increase the decimal places.
             digits.insert(digits.begin(), 1);
