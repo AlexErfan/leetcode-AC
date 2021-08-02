@@ -56,29 +56,18 @@
 class Solution {
 public:
     vector<int> plusOne(vector<int>& digits) {
-        int final_digit = 0;        
-        int size = digits.size();
-        int carry = 0;
-
-        digits[size-1] += 1;
-
-        if (digits[size-1] == 10) {
-            digits[size-1] = 0;
-            carry = 1;
-
-            for (int i=size-2; i >= 0; --i) {
-                digits[i] += carry;
-                if (digits[i] == 10) {
-                    digits[i] = 0;
-                    carry = 1;
-                } else 
-                    carry = 0;
+        int n = digits.size();
+        for (int i = n-1; i >= 0; --i) {
+            if (digits[i] == 9)
+                digits[i] = 0;
+            else {
+                ++digits[i];
+                return digits;
             }
-        } 
+        }
 
-        if (carry == 1) // prepend 1 to increase the decimal places.
-            digits.insert(digits.begin(), 1);
-
+        digits[0] = 1;
+        digits.push_back(0);
         return digits;
     }
 };
