@@ -56,18 +56,23 @@
 class Solution {
 public:
     vector<int> plusOne(vector<int>& digits) {
-        int n = digits.size();
-        for (int i = n-1; i >= 0; --i) {
-            if (digits[i] == 9)
-                digits[i] = 0;
-            else {
-                ++digits[i];
-                return digits;
-            }
-        }
+        return helper(digits, digits.size()-1);
+    }
 
-        digits[0] = 1;
-        digits.push_back(0);
-        return digits;
+private:
+    vector<int> helper(vector<int>& digits, const int& idx) {
+       if (digits[idx] < 9) {
+           ++digits[idx];
+           return digits;
+       } else { // digits = 9.
+            if (idx != 0) { // Not the leftmots digit.
+                digits[idx] = 0;
+                return helper(digits, idx - 1);
+            } else { // reached the leftmost digit.
+               digits[0] = 1;
+               digits.push_back(0);
+               return digits;
+            }
+       }
     }
 };
