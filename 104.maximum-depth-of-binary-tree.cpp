@@ -66,12 +66,39 @@
  * };
  */
 class Solution {
+private:
+    queue<pair<TreeNode*, int>> nextItems;
+    int curretMax = 0;
+
+    int nextDepth () {
+        if (nextItems.size() == 0)
+            return curretMax;
+
+        auto nextItem = nextItems.front();
+        nextItems.pop();
+
+        auto nextNode = nextItem.first;
+        if (not nextNode)
+            return curretMax;
+        auto nextLevel = nextItem.second + 1;
+
+        curretMax = max(curretMax, nextLevel); // update the depth.
+
+        if (nextNode->left)
+            nextItems.push(make_pair(nextNode->left, nextLevel));
+        if (nextNode->right)
+            nextItems.push(make_pair(nextNode->right, nextLevel));
+
+        return nextDepth();
+    }
 public:
     int maxDepth(TreeNode* root) {
-        if (not root)
-            return 0;
+        queue<pair<TreeNode*, int>> empty;
+        swap(nextItems, empty);
 
-        return max(1 + maxDepth(root->left), 1 + maxDepth(root->right));
+        nextItems.push(make_pair(root, 0));
+
+        return nextDepth();
     }
 };
 
