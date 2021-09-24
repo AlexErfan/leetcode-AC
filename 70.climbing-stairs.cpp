@@ -56,8 +56,7 @@ private:
         if (cache[steps] > 0)
             return cache[steps];
 
-        cache[steps] = helper(steps+1, n, cache) + helper(steps+2, n, cache);
-        return cache[steps];
+        return cache[steps] = helper(steps+1, n, cache) + helper(steps+2, n, cache);
     }
 public:
     int climbStairs(int n) {
