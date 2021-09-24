@@ -67,11 +67,41 @@
  */
 class Solution {
 private:
+    std::queue<pair<TreeNode*, int>> nextItems;
+    int maxD = 0;
+
+    int nextStep() {
+        if (nextItems.size() == 0)
+            return maxD;
+        
+        // dequeue.
+        auto nextItem = nextItems.front();
+        nextItems.pop(); 
+
+        auto nextNode = nextItem.first;
+        if (not nextNode)
+            return maxD;
+        auto nextLevel = nextItem.second + 1;
+
+        // replace maxD.
+        maxD = max(maxD, nextLevel);
+
+        // push.
+        if (nextNode->left != NULL)
+            nextItems.push(make_pair(nextNode->left, nextLevel));
+        if (nextNode->right != NULL)
+        nextItems.push(make_pair(nextNode->right, nextLevel));
+
+
+        return nextStep();
+    }
 public:
     int maxDepth(TreeNode* root) {
-        if (not root)
-            return 0;
-        return max(1 + maxDepth(root->left), 1 + maxDepth(root->right));
+        std::queue<pair<TreeNode*, int>> empty;
+        std::swap(nextItems, empty);
+
+        nextItems.push(make_pair(root, 0));
+        return nextStep();
     }
 };
 
