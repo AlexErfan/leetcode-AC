@@ -55,23 +55,10 @@ private:
             return 0;
         if (cache[steps] > 0)
             return cache[steps];
+
         cache[steps] = helper(steps+1, n, cache) + helper(steps+2, n, cache);
-        //return helper(steps+1, n, cache) + helper(steps+2, n, cache); 
         return cache[steps];
     }
-
-    //int helper(int count, int n, vector<int>& cache) {
-    //    if (count == n)
-    //        return 1;
-    //    else if (count > n)
-    //        return 0;
-    //    if (cache[count > 0])
-    //        return cache[count];
-
-    //    cache[count] = helper(count+1, n, cache) + helper(count+2, n, cache);
-    //    return helper(count+1, n, cache) + helper(count+2, n, cache);
-
-    //}
 public:
     int climbStairs(int n) {
         vector<int> cache (n+1, 0);
