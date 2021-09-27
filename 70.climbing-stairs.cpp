@@ -48,19 +48,21 @@
  */
 class Solution {
 private:
-    int helper(int steps, int n, vector<int>& cache) {
-        if (steps == n)
+    int helper(int step, int n, vector<int>& cache) {
+        if (step == n)
             return 1;
-        if (steps > n)
+        else if (step > n)
             return 0;
-        if (cache[steps] > 0)
-            return cache[steps];
-
-        return cache[steps] = helper(steps+1, n, cache) + helper(steps+2, n, cache);
+        else if (cache[step] > 0)
+            return cache[step];
+        // recursive relation
+        cache[step] = helper(step+1, n, cache) + helper(step+2, n, cache);
+        return cache[step];
     }
 public:
     int climbStairs(int n) {
         vector<int> cache (n+1, 0);
         return helper(0, n, cache);
+
     }
 };
