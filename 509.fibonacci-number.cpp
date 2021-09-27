@@ -68,10 +68,10 @@ public:
         else if (n == 0)
             return 0;
         else if (cache.count(n))
-            return cache.at(n);
+            return cache[n];
         else {
-            cache.insert ({n, fib(n-1) + fib(n-2)});
-            return cache.at(n);
+            cache[n] = fib(n-1) + fib(n-2);
+            return cache[n];
         }
     }
 };
