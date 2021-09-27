@@ -56,15 +56,20 @@
  * 
  */
 class Solution {
+private:
+    unordered_map<int, int> cache;
 public:
     int fib(int n) {
-        if (n == 1)        
+        if (n == 1)
             return 1;
         else if (n == 0)
             return 0;
-        else // recursive relation.
-            return fib(n-1) + fib(n-2);
-
+        else if (cache.count(n))
+            return cache[n];
+        else {
+            cache[n] = fib(n-1) + fib(n-2);
+            return cache[n];
+        }
     }
 };
 
