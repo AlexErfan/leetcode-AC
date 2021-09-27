@@ -55,6 +55,9 @@
  * 
  * 
  */
+
+// time: O(N)
+// space: O(N)
 class Solution {
 private:
     unordered_map<int, int> cache;
@@ -65,10 +68,10 @@ public:
         else if (n == 0)
             return 0;
         else if (cache.count(n))
-            return cache[n];
+            return cache.at(n);
         else {
-            cache[n] = fib(n-1) + fib(n-2);
-            return cache[n];
+            cache.insert ({n, fib(n-1) + fib(n-2)});
+            return cache.at(n);
         }
     }
 };
