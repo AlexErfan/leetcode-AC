@@ -41,7 +41,6 @@
  * 
  */
 class Solution {
-private:
 public:
     vector<int> getRow(int rowIndex) {
         if (rowIndex == 0)
@@ -50,14 +49,14 @@ public:
             return {1,1};
         
         vector<int> row;
-        vector<int> prev = getRow(rowIndex-1);
-        
+        vector<int> prev = getRow(rowIndex - 1);
+
         row.push_back(1);
-        for (int i = 0; i < prev.size()-1; i++) {
-            row.push_back(prev[i] + prev[i+1]);
+        for (int i = 1; i < prev.size(); i++) {
+            row.push_back(prev[i-1] + prev[i]);
         }
         row.push_back(1);
-        return row;
 
+        return row;
     }
 };
