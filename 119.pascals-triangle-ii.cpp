@@ -46,18 +46,18 @@ public:
     vector<int> getRow(int rowIndex) {
         if (rowIndex == 0)
             return {1};
-        if (rowIndex == 1)
+        else if (rowIndex == 1)
             return {1,1};
-
-        vector<int> cur;
+        
+        vector<int> row;
         vector<int> prev = getRow(rowIndex-1);
-
-        cur.push_back(1);
-        for (int i = 1; i < rowIndex; i++) {
-            cur.push_back(prev[i-1] + prev[i]);
+        
+        row.push_back(1);
+        for (int i = 0; i < prev.size()-1; i++) {
+            row.push_back(prev[i] + prev[i+1]);
         }
-        cur.push_back(1);
+        row.push_back(1);
+        return row;
 
-        return cur;
     }
 };
