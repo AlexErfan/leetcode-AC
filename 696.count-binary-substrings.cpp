@@ -53,14 +53,12 @@
 class Solution {
 public:
     int countBinarySubstrings(string s) {
-        // four ints with size 0.
         vector<int> groups (s.size(), 0);
 
-        // first element as a gorup.
         groups[0] = 1;
         int t = 0;
 
-        for (int i = 1; i < groups.size(); i++) {
+        for (int i = 1; i < s.size(); i++) {
             if (s[i-1] != s[i]) {
                 groups[++t] = 1;
             } else {
@@ -68,12 +66,12 @@ public:
             }
         }
 
-        // count the result.
         int result = 0;
+        
         for (int i = 1; i <= t; i++) {
             result += min(groups[i-1], groups[i]);
         }
-        
+
         return result;
     }
 };
