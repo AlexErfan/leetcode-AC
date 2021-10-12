@@ -70,47 +70,56 @@
  * 
  */
 class Solution {
-private:
-    int dfs(unordered_set<string>& presentWords, unordered_map<string, int>& memo, string word) {
-        if (memo.find(word) != memo.end())
-            return memo[word];
-
-        int maxDepth = 1;
-
-        // find maxDepth for current word.
-        for (int i = 0; i < word.length(); i++) {
-            // find depth for each newWord, update the maxDepth.
-            string newWord = word.substr(0, i) + word.substr(i+1);
-            int curDepth;
-            if (presentWords.find(newWord) != presentWords.end()) {
-                curDepth = 1 + dfs(presentWords, memo, newWord);
-                maxDepth = max(maxDepth, curDepth);
-            }
-        }
-
-
-        // store maxDepth for current word.
-        memo[word] = maxDepth;
-
-        return maxDepth;
-    }
-
-
 public:
     int longestStrChain(vector<string>& words) {
-        unordered_map<string, int> memo;
-        unordered_set<string> presentWords;
+//                unordered_map<string, int> dp;
+//
+//        // Sorting the list in terms of the word length.
+//        std::sort(words.begin(), words.end(), [](const std::string &word1, const std::string &word2) {
+//            return word1.size() < word2.size();
+//        });
+//
+//        int longestWordSequenceLength = 1;
+//
+//        for (const string &word : words) {
+//            int presentLength = 1;
+//            // Find all possible predecessors for the current word by removing one letter at a time.
+//            for (int i = 0; i < word.length(); i++) {
+//                string predecessor = word.substr(0, i) + word.substr(i + 1, word.length() + 1);
+//                if (dp.find(predecessor) != dp.end()) {
+//                    int previousLength = dp[predecessor];
+//                    presentLength = max(presentLength, previousLength + 1);
+//                }
+//            }
+//            dp[word] = presentLength;
+//            longestWordSequenceLength = max(longestWordSequenceLength, presentLength);
+//        }
+//        return longestWordSequenceLength;
 
-        for (const string &word: words)
-            presentWords.insert(word);
+        unordered_map<string, int> dp;
 
-        int result = 0;
-        for (const string &word: words) {
-            result = max(result, dfs(presentWords, memo, word));
+        // Sorting the list in terms of the word length.
+        std::sort(words.begin(), words.end(), [](const std::string &word1, const std::string &word2) {
+            return word1.size() < word2.size();
+        });
+
+        int maxLength = 1;
+        for (const string& word: words) {
+            int curMaxLen = 1;
+
+            // find max length for current word.
+            for (int i = 0; i < word.length(); i++) {
+                string newWord = word.substr(0,i) + word.substr(i+1);
+                if (dp.find(newWord) != dp.end()) {
+                    int prevLen = dp[newWord];
+                    curMaxLen = max(prevLen + 1, curMaxLen);
+                }
+            }
+            dp[word] = curMaxLen;
+            maxLength = max(curMaxLen, maxLength);
         }
 
-        return result;
+        return maxLength;
     }
-
 };
 
