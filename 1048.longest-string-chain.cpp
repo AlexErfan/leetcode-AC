@@ -71,52 +71,46 @@
  */
 class Solution {
 private:
-    int helper(unordered_set<string>& presentWords, unordered_map<string, int>& memo, string word) {
+    int dfs(unordered_set<string>& presentWords, unordered_map<string, int>& memo, string word) {
         if (memo.find(word) != memo.end())
             return memo[word];
 
         int maxDepth = 1;
-        for (int i = 0; i < word.size(); i++) {
-            string newWord = word.substr(0,i) + word.substr(i+1);
-            int depth = 0;
-            if (presentWords.find(newWord) != presentWords.end()) {
-                depth = 1 + helper(presentWords, memo, newWord);
-            }
-            maxDepth = max(depth, maxDepth);
-        }
-        
-        memo[word] = maxDepth;
-        return maxDepth;
 
+        // find maxDepth for current word.
+        for (int i = 0; i < word.length(); i++) {
+            // find depth for each newWord, update the maxDepth.
+            string newWord = word.substr(0, i) + word.substr(i+1);
+            int curDepth;
+            if (presentWords.find(newWord) != presentWords.end()) {
+                curDepth = 1 + dfs(presentWords, memo, newWord);
+                maxDepth = max(maxDepth, curDepth);
+            }
+        }
+
+
+        // store maxDepth for current word.
+        memo[word] = maxDepth;
+
+        return maxDepth;
     }
+
 
 public:
     int longestStrChain(vector<string>& words) {
         unordered_map<string, int> memo;
         unordered_set<string> presentWords;
 
-        // put all words into current list
-        for (const string &word: words) {
+        for (const string &word: words)
             presentWords.insert(word);
-        }
-    
-        // result.
+
         int result = 0;
         for (const string &word: words) {
-            result = max(result, helper(presentWords, memo, word));
+            result = max(result, dfs(presentWords, memo, word));
         }
 
         return result;
     }
 
 };
-
-
-
-
-
-
-
-
-
 
