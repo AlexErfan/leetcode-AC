@@ -53,49 +53,27 @@
 class Solution {
 public:
     int countBinarySubstrings(string s) {
-                // generate empty list to count number of recurrences.
-        vector<int> groups (s.size(), 0);
+        vector<int> digitCount (s.size(), 0);
 
-        // initilize the first group.
-        groups[0] = 1;
-        int t = 0;
+        digitCount[0] = 1;
+        int temp = 0;
 
-        // start a new group, or increment current one.
+        // count the size for each set consecutive numbers
         for (int i = 1; i < s.size(); i++) {
-            if (s[i-1] != s[i]) {
-                groups[++t] = 1;
-            } else {
-                groups[t]++;
-            }
+            if (s[i-1] != s[i])
+                digitCount[++temp] = 1;
+            else
+                digitCount[temp]++;
         }
 
-
-        // count min of combinations
-        int result = 0;
-        for (int i = 1; i <= t; i++) {
-            result += min(groups[i-1], groups[i]);
+        // combine them to make a pair
+        int ans = 0;
+        for (int i = 1; i <= temp; i++) {
+            ans += min(digitCount[i-1], digitCount[i]);
         }
 
-        return result;
-        //int ans = 0;
-        //vector<int> digitCount (s.size(), 0);
-
-        //digitCount[0] = 1;
-        //int temp = 0;
-        //// count the size for each set consecutive numbers
-        //for (int i = 1; i < s.size(); i++) {
-        //    if (digitCount[i-1] != digitCount[i])
-        //        digitCount[++temp] = 1;
-        //    else
-        //        digitCount[temp]++;
-        //}
-
-        //// combine them to make a pair
-        //for (int i = 1; i <= temp; i++) {
-        //    int minGroup = min(digitCount[i-1], digitCount[i]);
-        //    ans += minGroup;
-        //}
-        //
-        //return ans-1;
+        for (auto& i:digitCount)
+            cout << i << endl;
+        return ans;
     }
 };
