@@ -53,19 +53,49 @@
 class Solution {
 public:
     int countBinarySubstrings(string s) {
-        int ans = 0, prev = 0, cur = 1;
+                // generate empty list to count number of recurrences.
+        vector<int> groups (s.size(), 0);
 
+        // initilize the first group.
+        groups[0] = 1;
+        int t = 0;
+
+        // start a new group, or increment current one.
         for (int i = 1; i < s.size(); i++) {
             if (s[i-1] != s[i]) {
-                ans += min(prev, cur);
-                prev = cur;
-                cur = 1;
+                groups[++t] = 1;
             } else {
-                cur++;
+                groups[t]++;
             }
         }
 
-        ans += min(prev, cur);
-        return ans;
+
+        // count min of combinations
+        int result = 0;
+        for (int i = 1; i <= t; i++) {
+            result += min(groups[i-1], groups[i]);
+        }
+
+        return result;
+        //int ans = 0;
+        //vector<int> digitCount (s.size(), 0);
+
+        //digitCount[0] = 1;
+        //int temp = 0;
+        //// count the size for each set consecutive numbers
+        //for (int i = 1; i < s.size(); i++) {
+        //    if (digitCount[i-1] != digitCount[i])
+        //        digitCount[++temp] = 1;
+        //    else
+        //        digitCount[temp]++;
+        //}
+
+        //// combine them to make a pair
+        //for (int i = 1; i <= temp; i++) {
+        //    int minGroup = min(digitCount[i-1], digitCount[i]);
+        //    ans += minGroup;
+        //}
+        //
+        //return ans-1;
     }
 };
