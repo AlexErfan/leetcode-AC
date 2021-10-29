@@ -40,14 +40,13 @@
 class Solution {
 public:
     int numTrees(int n) {
-        vector<long> G(n, 0);
-        G[0] = 1;
+        long G = 1;
         
-        for (int i = 1; i < n; i++) {
-            G[i] = G[i-1] * (4*i+2) / (i+2);
+        for (int i = 0; i < n; i++) {
+            G = G * (4*i+2) / (i+2);
         }
         
-        return G[n-1];
+        return (int) G;
 
     }
 };
