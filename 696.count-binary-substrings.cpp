@@ -53,27 +53,19 @@
 class Solution {
 public:
     int countBinarySubstrings(string s) {
-        vector<int> digitCount (s.size(), 0);
+        int ans = 0, prev = 0, cur = 1;
 
-        digitCount[0] = 1;
-        int temp = 0;
-
-        // count the size for each set consecutive numbers
         for (int i = 1; i < s.size(); i++) {
-            if (s[i-1] != s[i])
-                digitCount[++temp] = 1;
-            else
-                digitCount[temp]++;
+            if (s[i-1] != s[i]) {
+                ans += min(prev, cur);
+                prev = cur;
+                cur = 1;
+            }else{
+                cur++;
+            }
         }
 
-        // combine them to make a pair
-        int ans = 0;
-        for (int i = 1; i <= temp; i++) {
-            ans += min(digitCount[i-1], digitCount[i]);
-        }
-
-        for (auto& i:digitCount)
-            cout << i << endl;
+        ans += min(prev, cur);
         return ans;
     }
 };
